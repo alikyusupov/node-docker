@@ -6,7 +6,7 @@ const userController = {
     createUser: async (req, res, next) => {
         try {
             const { name, password } = req.body
-            const user = await userModel.findOne({username: name})
+            const user = await userModel.findOne({name})
             if(user) {
                 return res.status(401).json({
                     status: "Bad request",
@@ -18,6 +18,7 @@ const userController = {
                 name,
                 password: hashPwd
             })
+            req.session.user = newuser
             res.status(201).json({
                 status: 'Success',
                 data: newuser
@@ -41,6 +42,7 @@ const userController = {
             }
             const isMatch = await compare(password, user.password)
             if(isMatch){
+                req.session.user = user
                 return res.status(201).json({
                     status: 'Success',
                     data: 'Successfully logged in'
