@@ -31,6 +31,10 @@ const app = express()
 
 app.use(express.json())
 
+app.enable('trust proxy')
+
+// app.use(cors({}))
+
 app.use(session({
     store: new RedisStore({ 
         client: redisClient,
@@ -49,7 +53,8 @@ mongoose.connect(`mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_
 .then(() => console.log('DB is connected...'))
 .catch(e => console.log(e))
 
-app.get('/', (req, res, next) => {
+app.get('/api/v1', (req, res, next) => {
+    console.log("Running here...");
     res.send('<h2>Hello World!Bye!!Temur!</h2>')
 })
 
