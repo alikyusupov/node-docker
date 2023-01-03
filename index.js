@@ -17,6 +17,8 @@ const userRouter = require("./routes/user-routes")
 
 const session = require("express-session")
 
+const cors = require("cors")
+
 let RedisStore = require("connect-redis")(session)
 
 const { createClient } = require("redis")
@@ -33,7 +35,7 @@ app.use(express.json())
 
 app.enable('trust proxy')
 
-// app.use(cors({}))
+app.use(cors({}))
 
 app.use(session({
     store: new RedisStore({ 
@@ -45,7 +47,7 @@ app.use(session({
     cookie: {
         secure: false, // if true only transmit cookie over https
         httpOnly: false, // if true prevent client side JS from reading the cookie 
-        maxAge: 1000 * 60 // session max age in miliseconds
+        maxAge: 1000 * 10 // session max age in miliseconds
     }
 }))
 
