@@ -57,7 +57,7 @@ mongoose.connect(`mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_
 
 app.get('/api/v1', (req, res, next) => {
     console.log("Running here...");
-    res.send('<h2>Hello World!Bye!!Temur!</h2>')
+    res.send('<h2>Hello World!Bye!!Posya!</h2>')
 })
 
 app.use('/api/v1/blogs', blogRouter)
